@@ -15,7 +15,7 @@ module.exports = {
 </body>
 </html>`,
 
-  '/helium': `<!DOCTYPE html>
+  '/helium.html': `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -31,7 +31,7 @@ module.exports = {
 </body>
 </html>`,
 
-  '/hydrogen': `<!DOCTYPE html>
+  '/hydrogen.html': `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -47,7 +47,7 @@ module.exports = {
 </body>
 </html>`,
 
-  '/index': `<!DOCTYPE html>
+  '/index.html': `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -69,7 +69,8 @@ module.exports = {
 </body>
 </html>`,
 
-  '/styles': `@import url(http://fonts.googleapis.com/css?family=Open+Sans|Roboto+Slab);
+
+'/css/styles.css': `@import url(http://fonts.googleapis.com/css?family=Open+Sans|Roboto+Slab);
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
