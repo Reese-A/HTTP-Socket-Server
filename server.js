@@ -1,11 +1,12 @@
 const net = require('net');
+const elements = require('./elements');
 
 const server = net.createServer(function (client) {
 });
 
 server.on('connection', (request) => {
   
-  console.log('connected');
+  console.log(elements.helium);
 })
 
 server.on('error', (err) => {

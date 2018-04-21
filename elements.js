@@ -1,5 +1,5 @@
-let elements = {
-  404: `<!DOCTYPE html>
+module.exports = {
+  notFound: `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -180,3 +180,9 @@ a:hover{
   border-bottom: 1px dashed #C6C5AC;
 }`,
 }
+
+// module.exports.notFound = elements.notFound;
+// module.exports.helium = elements.helium;
+// module.exports.hydrogen = elements.hydrogen;
+// module.exports.index= elements.index;
+// module.exports.styles = elements.styles;
