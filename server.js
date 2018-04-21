@@ -4,7 +4,9 @@ const elements = require('./elements');
 const server = net.createServer(function (request) {
   request.on('data', (data) => {
     let strArr = data.toString().split(' ');
-    console.log(strArr);
+    let utc = Date.now();
+    let timeStamp = new Date(utc).toUTCString();
+    console.log(timeStamp);
     let uri = strArr[1]
     if(uri === '/'){
       request.write(elements['/index']);
