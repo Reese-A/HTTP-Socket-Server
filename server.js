@@ -4,8 +4,7 @@ const elements = require('./elements');
 const server = net.createServer(function (request) {
   request.on('data', (data) => {
     let strArr = data.toString().split(' ');
-    let utc = Date.now();
-    let timeStamp = new Date(utc).toUTCString();
+    let timeStamp = new Date(Date.now()).toUTCString();
     console.log(timeStamp);
     let uri = strArr[1]
     if(uri === '/'){
@@ -13,6 +12,8 @@ const server = net.createServer(function (request) {
     }
     let elementsCheck = elements.hasOwnProperty(uri);
     if (elementsCheck){
+      let contentLength = elements[uri].length;
+      console.log(contentLength);
       request.write((elements[uri]));
     }
     console.log(data.toString());
