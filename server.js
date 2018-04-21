@@ -1,10 +1,10 @@
 const net = require('net');
 
 const server = net.createServer(function (client) {
-
 });
 
-server.on('connection', () => {
+server.on('connection', (request) => {
+  
   console.log('connected');
 })
 
