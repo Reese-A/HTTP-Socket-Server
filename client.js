@@ -1,22 +1,30 @@
 let net = require('net');
+const URL = require('url').URL
+console.log(URL);
+let url = new URL(process.argv[2]);
+console.log(url);
+
 
 const request = net.createConnection({
-  host: process.argv[2],
+  host: url.host,
   port: 80
 }, () => {
   request.write(makeReq());
   console.log('Connected');
 });
 
-function makeReq(){
-  let url = process.argv[2]
-  return `GET / HTTP/1.1\r\n\r\n`
+function reqLine(){
+  let path = url.pathname;
+  let protocol = `${url.protocol.substr(0, 4).toUpperCase()}/1.1`
+  return `GET  ${path} ${protocol}`
 }
 
-process.stdin.on('data', function (data) {
-});
+function makeReq(){
+  let date = new Date().toUTCString();
+  let host = url.host;
+  return `${reqLine()}\r\nHost: ${host}\r\nDate: ${date}\r\n\r\n`; 
+}
 
 request.on('data', function (data) {
   console.log(data.toString());
-  request.end()
 });
