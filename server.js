@@ -26,7 +26,7 @@ const server = net.createServer(function (request) {
     }
 
     function makeHeader() {
-      let type = 'Content-Type: text/html; text/css';
+      let type = 'Content-Type: text/html; text/css; charset=utf-8';
       return `${statusLine()}\n${setDate()}\n${type}`;
     }
 
