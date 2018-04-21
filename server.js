@@ -4,17 +4,20 @@ const elements = require('./elements');
 const server = net.createServer(function (request) {
 
   request.on('data', (data) => {
+
+    let strArr = data.toString().split(' ');
+    let uri = strArr[1]
+    let elementsCheck = elements.hasOwnProperty(uri);
+
     function setDate() {
       let timeStamp = new Date().toUTCString();
       return `Date: ${timeStamp}`;
     }
 
-    let strArr = data.toString().split(' ');
-
     function statusLine() {
       let splitArr = strArr[2].split('\r');
       let status = '';
-      if (elementsCheck === false) {
+      if (uri !== '/' && elementsCheck === false) {
         status = '404 Not Found';
       } else {
         status = '200 ok';
@@ -22,26 +25,26 @@ const server = net.createServer(function (request) {
       return `${splitArr[0]} ${status}`;
     }
 
-    function makeHeader(){
+    function makeHeader() {
       let type = 'Content-Type: text/html; text/css';
+      return `${statusLine()}\n${setDate()}\n${type}`;
     }
 
-    let uri = strArr[1]
     if (uri === '/') {
       let contentLength = elements['/index'].length;
-      request.write(elements['/index']);
-    }
-
-    let elementsCheck = elements.hasOwnProperty(uri);
-
-    if (elementsCheck) {
-      let contentLength = elements[uri].length;
-      request.write(elements[uri]);
+      console.log(`${makeHeader()}\nContent-Length: ${contentLength}\n\n${elements['/index']}`);
+      request.write(`${makeHeader()}\nContent-Length: ${contentLength}\n\n${elements['/index']}`);
     } else {
-      let contentLength = elements['/notFound'].length;
-      request.write(elements["/notFound"]);
+      if (elementsCheck) {
+        let contentLength = elements[uri].length;
+        console.log(`${makeHeader()}\nContent-Length: ${contentLength}\n\n${elements[uri]}`);
+        request.write(`${makeHeader()}\nContent-Length: ${contentLength}\n\n${elements[uri]}`);
+      } else {
+        let contentLength = elements['/notFound'].length;
+        console.log(`${makeHeader()}\nContent-Length: ${contentLength}\n\n${elements['/notFound']}`);
+        request.write(`${makeHeader()}\nContent-Length: ${contentLength}\n\n${elements['/notFound']}`);
+      }
     }
-    console.log(data.toString());
   })
 });
 
