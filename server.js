@@ -6,8 +6,6 @@ const server = net.createServer(function (request) {
   request.on('data', (data) => {
 
     let strArr = data.toString().split(' ');
-    console.log(strArr);
-    
     let uri = strArr[1]
     let elementsCheck = elements.hasOwnProperty(uri);
 
@@ -39,16 +37,13 @@ const server = net.createServer(function (request) {
 
     if (uri === '/') {
       let contentLength = elements['/index.html'].length;
-      console.log(`${makeHeader()}\nContent-Length: ${contentLength}\n\n${elements['/index.html']}\n`);
       request.write(`${makeHeader()}\nContent-Length: ${contentLength}\n\n${elements['/index.html']}\n`);
     } else {
       if (elementsCheck) {
         let contentLength = elements[uri].length;
-        console.log(`${makeHeader()}\nContent-Length: ${contentLength}\n\n${elements[uri]}\n`);
         request.write(`${makeHeader()}\nContent-Length: ${contentLength}\n\n${elements[uri]}\n`);
       } else {
         let contentLength = elements['/notFound'].length;
-        console.log(`${makeHeader()}\nContent-Length: ${contentLength}\n\n${elements['/notFound']}\n`);
         request.write(`${makeHeader()}\nContent-Length: ${contentLength}\n\n${elements['/notFound']}\n`);
       }
     }
