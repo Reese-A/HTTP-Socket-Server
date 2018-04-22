@@ -4,10 +4,13 @@ console.log(URL);
 let url = new URL(process.argv[2]);
 console.log(url);
 
+let ports = {
+  'http:':80,
+}
 
 const request = net.createConnection({
-  host: url.host,
-  port: 80
+  host: url.hostname,
+  port: url.port || ports[url.protocol],
 }, () => {
   request.write(makeReq());
   console.log('Connected');
@@ -15,13 +18,12 @@ const request = net.createConnection({
 
 function reqLine(){
   let path = url.pathname;
-  let protocol = `${url.protocol.substr(0, 4).toUpperCase()}/1.1`
-  return `GET  ${path} ${protocol}`
+  return `GET ${path} HTTP/1.1`
 }
 
 function makeReq(){
   let date = new Date().toUTCString();
-  let host = url.host;
+  let host = url.hostname;
   return `${reqLine()}\r\nHost: ${host}\r\nDate: ${date}\r\n\r\n`; 
 }
 
