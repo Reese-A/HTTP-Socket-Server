@@ -24,8 +24,25 @@ function makeReq(){
   return `${reqLine()}\r\nHost: ${host}\r\nDate: ${date}\r\n\r\n`; 
 }
 
+let response = ''
+
 request.on('data', function (data) {
-  // console.log(data.toString());
-  console.log(data.toString().split('\n'));
+  console.log(data.toString())
+  response += data;
   request.end();
+});
+
+request.on('end', () => {
+  let splitData = response.toString().split('\r\n\r\n');
+  let head = splitData[0];
+  let body = splitData[1];
+  let tmp = body.split('\r\n');
+  let odds = tmp.filter(function (value, idx){
+    if(idx%2 !== 0){
+      return true;
+    }
+    return false;
+  })
+  let joined = odds.join('');
+  // console.log(joined);
 });
