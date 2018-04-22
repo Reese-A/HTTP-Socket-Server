@@ -1,9 +1,6 @@
 let net = require('net');
 const URL = require('url').URL
-console.log(URL);
 let url = new URL(process.argv[2]);
-console.log(url);
-
 let ports = {
   'http:':80,
 }
@@ -29,4 +26,5 @@ function makeReq(){
 
 request.on('data', function (data) {
   console.log(data.toString());
+  request.end();
 });
