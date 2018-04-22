@@ -32,19 +32,19 @@ const server = net.createServer(function (request) {
       } else {
         type = 'Content-Type: text/html; charset=utf-8';
       }
-      return `${statusLine()}\n${setDate()}\n${type}`;
+      return `${statusLine()}\r\n${setDate()}\r\n${type}`;
     }
 
     if (uri === '/') {
       let contentLength = elements['/index.html'].length;
-      request.write(`${makeHeader()}\nContent-Length: ${contentLength}\n\n${elements['/index.html']}\n`);
+      request.write(`${makeHeader()}\r\nContent-Length: ${contentLength}\r\n\r\n${elements['/index.html']}\r\n`);
     } else {
       if (elementsCheck) {
         let contentLength = elements[uri].length;
-        request.write(`${makeHeader()}\nContent-Length: ${contentLength}\n\n${elements[uri]}\n`);
+        request.write(`${makeHeader()}\r\nContent-Length: ${contentLength}\r\n\r\n${elements[uri]}\r\n`);
       } else {
         let contentLength = elements['/notFound'].length;
-        request.write(`${makeHeader()}\nContent-Length: ${contentLength}\n\n${elements['/notFound']}\n`);
+        request.write(`${makeHeader()}\r\nContent-Length: ${contentLength}\r\n\r\n${elements['/notFound']}\r\n`);
       }
     }
   })
